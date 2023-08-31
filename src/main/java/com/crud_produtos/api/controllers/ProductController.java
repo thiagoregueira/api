@@ -59,11 +59,10 @@ public class ProductController {
         }
         ProductModel productModel = productOptional.get();
         BeanUtils.copyProperties(produtoRecordDto, productModel, "id"); // Mantém o ID durante a cópia
-        ProductModel updatedProduct = productRepository.save(productModel);
-        return ResponseEntity.status(HttpStatus.OK).body(updatedProduct);
+        return ResponseEntity.status(HttpStatus.OK).body(productRepository.save(productModel));
     }
 
-    @PutMapping("/products/{name}")
+    @PutMapping("/products/name/{name}")
     public ResponseEntity<Object> findAndUpdateProduct(@PathVariable(value = "name") String name,
             @RequestBody @Valid ProductRecordDto produtoRecordDto) {
         Optional<ProductModel> product0 = productRepository.findByName(name);
